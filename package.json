@@ -1,0 +1,28 @@
+{
+  "name": "kanbandown",
+  "version": "1.0.0",
+  "description": "Markdown to Kanban converter",
+  "main": "index.js",
+  "scripts": {
+    "build:js": "browserify ${npm_package_config_src_js} -t babelify --outfile ${npm_package_config_dist_js}",
+    "build:example": "browserify example/index_src.es6 -t babelify --outfile example/index.js",
+    "watch:example": "watchify example/index_src.es6 -t babelify --outfile example/index.js -dv",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:js": "watchify ${npm_package_config_src_js} -t babelify -o ${npm_package_config_dist_js} -dv"
+  },
+  "author": "hashrock <hashedrock@gmail.com>",
+  "license": "ISC",
+  "config": {
+    "src_js": "src/main.es6",
+    "dist_js": "kanbandown.js"
+  },
+  "dependencies": {
+    "emojify": "0.0.0",
+    "jquery": "^2.1.3",
+    "sortablejs": "^1.1.1"
+  },
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "vue": "^0.11.8"
+  }
+}
