@@ -112,10 +112,6 @@ export class Kanban {
     }
 
     renderComponent() {
-        //Remove All Events
-        Array.prototype.forEach.call(this._el.querySelectorAll(".board__card"), function (card: any) {
-            card.removeEventListener("dblclick");
-        });
         this._el.innerHTML = this.render(this._data);
     }
 

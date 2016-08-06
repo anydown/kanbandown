@@ -33,7 +33,7 @@
     <h1>KanbanDown</h1>
     <div class="board"></div>
     <p>Source</p>
-    <textarea class="textOutput" v-on="keyup: updateKanban" v-model="textOutput"></textarea>
+    <textarea class="textOutput" @keyup="updateKanban" v-model="textOutput"></textarea>
 </div>
 <script src="js/emojify.min.js"></script>
 <script src="index.js"></script>

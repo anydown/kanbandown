@@ -194,10 +194,6 @@
 	        });
 	    };
 	    Kanban.prototype.renderComponent = function () {
-	        //Remove All Events
-	        Array.prototype.forEach.call(this._el.querySelectorAll(".board__card"), function (card) {
-	            card.removeEventListener("dblclick");
-	        });
 	        this._el.innerHTML = this.render(this._data);
 	    };
 	    Kanban.prototype.update = function () {

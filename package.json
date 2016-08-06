@@ -10,7 +10,8 @@
     "watch:js": "webpack -w",
     "watch:serve": "live-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:example": "webpack --config webpack.example.config.js"
+    "build:example": "webpack --config webpack.example.config.js",
+    "watch:example": "webpack -w --config webpack.example.config.js"
   },
   "author": "hashrock <hashedrock@gmail.com>",
   "license": "ISC",
