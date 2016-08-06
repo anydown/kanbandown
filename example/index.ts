@@ -1,8 +1,9 @@
-import Kanban from "../src/main.es6";
-var jQuery = require("jquery");
-var Vue = require("vue");
+import {Kanban} from "../src/main";
+import * as Vue from "vue"
 
-var kanban;
+declare var emojify:any
+
+var kanban: Kanban;
 
 emojify.setConfig({
     img_dir : 'images/basic'
@@ -23,7 +24,7 @@ new Vue({
         kanban = new Kanban({
             el: ".board",
             data: Kanban.mdToKanban(this.textOutput),
-            onUpdate : (data)=>{
+            onUpdate : (data: any)=>{
                 this.textOutput = Kanban.kanbanToMd(data);
                 emojify.run();
             }
