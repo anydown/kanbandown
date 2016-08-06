@@ -4,7 +4,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>KanbanDown Demo</title>
-    <link rel="stylesheet" href="../kanbandown.css"/>
+    <link rel="stylesheet" href="../dist/kanbandown.css"/>
     <link rel="stylesheet" href="css/basic/emojify.min.css" />
     <style>
         .emoji {
@@ -33,7 +33,7 @@
     <h1>KanbanDown</h1>
     <div class="board"></div>
     <p>Source</p>
-    <textarea class="textOutput" v-on="keyup: updateKanban" v-model="textOutput"></textarea>
+    <textarea class="textOutput" @keyup="updateKanban" v-model="textOutput"></textarea>
 </div>
 <script src="js/emojify.min.js"></script>
 <script src="index.js"></script>
