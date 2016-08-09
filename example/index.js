@@ -142,10 +142,7 @@
 	                    card.innerHTML = value;
 	                    self._data.forEach(function (board) {
 	                        board.cards.forEach(function (c) {
-	                            console.log(card.dataset.cardid + " vs " + c.cardid);
-	                            console.log(typeof card.dataset.cardid + " vs " + typeof c.cardid);
 	                            if (card.dataset.cardid === "" + c.cardid) {
-	                                console.log("hit!");
 	                                c.name = value;
 	                            }
 	                        });
