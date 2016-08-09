@@ -1,4 +1,4 @@
-import {Kanban} from "../src/main";
+import {Kanban, Board, Card} from "../src/main";
 import * as Vue from "vue"
 
 declare var emojify:any
@@ -24,7 +24,7 @@ new Vue({
         kanban = new Kanban({
             el: ".board",
             data: Kanban.mdToKanban(this.textOutput),
-            onUpdate : (data: any)=>{
+            onUpdate : (data: Board[])=>{
                 this.textOutput = Kanban.kanbanToMd(data);
                 emojify.run();
             }

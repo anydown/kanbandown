@@ -55,17 +55,17 @@
 	var Sortable = __webpack_require__(2);
 	var Kanban = (function () {
 	    function Kanban(options) {
-	        options = options || {};
-	        options.update = options.hasOwnProperty('update') ? options.update : null;
-	        options.el = options.hasOwnProperty('el') ? options.el : "";
-	        options.data = options.hasOwnProperty('data') ? options.data : [];
-	        this._options = options;
+	        var opt = new KanbanOptions();
+	        opt.onUpdate = options.hasOwnProperty('onUpdate') ? options.onUpdate : null;
+	        opt.el = options.hasOwnProperty('el') ? options.el : "";
+	        opt.data = options.hasOwnProperty('data') ? options.data : [];
+	        this._options = opt;
 	        this._el = document.querySelector(this._options.el);
 	        if (!this._el) {
 	            console.error(this._options.el + " is not exist in the current dom!");
 	        }
 	        this._data = this._options.data;
-	        this._updateMethod = this._options.update;
+	        this._updateMethod = this._options.onUpdate;
 	        this.renderComponent();
 	        this.setupEvents();
 	    }
@@ -105,10 +105,7 @@
 	                    card.innerHTML = value;
 	                    self._data.forEach(function (board) {
 	                        board.cards.forEach(function (c) {
-	                            console.log(card.dataset.cardid + " vs " + c.cardid);
-	                            console.log(typeof card.dataset.cardid + " vs " + typeof c.cardid);
 	                            if (card.dataset.cardid === "" + c.cardid) {
-	                                console.log("hit!");
 	                                c.name = value;
 	                            }
 	                        });
@@ -206,6 +203,23 @@
 	}());
 	exports.Kanban = Kanban;
 	;
+	var Card = (function () {
+	    function Card() {
+	    }
+	    return Card;
+	}());
+	exports.Card = Card;
+	var Board = (function () {
+	    function Board() {
+	    }
+	    return Board;
+	}());
+	exports.Board = Board;
+	var KanbanOptions = (function () {
+	    function KanbanOptions() {
+	    }
+	    return KanbanOptions;
+	}());
 
 
 /***/ },

@@ -6,18 +6,18 @@ import * as mustach from "mustache"
 export class Kanban {
     _boardIdIndex: number
     _el: HTMLElement
-    _sortables: any
-    _data: any
-    _options: any
-    _updateMethod: any
+    _sortables: Sortable[]
+    _data: Board[]
+    _options: KanbanOptions
+    _updateMethod: (data: Board[])=>void
 
-    render(data: any) {
+    render(data: Board[]) {
         var result = "";
-        data.forEach((board: any) => {
+        data.forEach((board: Board) => {
             result += '<div class="board__list">';
             result += '<div class="board__list__title">' + board.name + '</div>';
             result += '<div class="board__list__cards">';
-            board.cards.forEach((card: any) => {
+            board.cards.forEach((card: Card) => {
                 result += '<div ' +
                     'data-raw="' + card.name + '" ' +
                     'data-cardid="' + card.cardid + '" ' +
@@ -50,10 +50,7 @@ export class Kanban {
                     card.innerHTML = value;
                     self._data.forEach((board: any) => {
                         board.cards.forEach((c: any) => {
-                            console.log(card.dataset.cardid + " vs " + c.cardid)
-                            console.log(typeof card.dataset.cardid + " vs " + typeof c.cardid)
                             if (card.dataset.cardid === "" + c.cardid) {
-                                console.log("hit!");
                                 c.name = value;
                             }
                         })
@@ -115,20 +112,20 @@ export class Kanban {
         this._el.innerHTML = this.render(this._data);
     }
 
-    constructor(options: any) {
-        options = options || {};
-        options.update = options.hasOwnProperty('update') ? options.update : null;
-        options.el = options.hasOwnProperty('el') ? options.el : "";
-        options.data = options.hasOwnProperty('data') ? options.data : [];
-        this._options = options;
+    constructor(options: KanbanOptions) {
+        var opt: KanbanOptions = new KanbanOptions();
+        opt.onUpdate = options.hasOwnProperty('onUpdate') ? options.onUpdate : null;
+        opt.el = options.hasOwnProperty('el') ? options.el : "";
+        opt.data = options.hasOwnProperty('data') ? options.data : [];
+        this._options = opt;
 
-        this._el = document.querySelector(this._options.el);
+        this._el = <HTMLElement>document.querySelector(this._options.el);
         if (!this._el) {
             console.error(this._options.el + " is not exist in the current dom!");
         }
 
         this._data = this._options.data;
-        this._updateMethod = this._options.update;
+        this._updateMethod = this._options.onUpdate;
 
         this.renderComponent();
         this.setupEvents();
@@ -138,21 +135,21 @@ export class Kanban {
         this._updateMethod(this._data);
     }
 
-    setData(data: any) {
-        this._sortables.forEach((sortable: any) => {
+    setData(data: Board[]) {
+        this._sortables.forEach((sortable: Sortable) => {
             sortable.destroy();
         });
         this._data = data;
         this.renderComponent();
         this.setupEvents();
     }
-    static mdToKanban(text: string) {
+    static mdToKanban(text: string):Board[] {
         var cardid = 0;
 
         var lines = text.split(/[\r|\n|\r\n]/);
 
-        var output: any[] = [];
-        var cards: any[] = [];
+        var output: Board[] = [];
+        var cards: Card[] = [];
         lines.forEach(function (line) {
             if (line.trim().indexOf("#") === 0) {
                 cards = [];
@@ -171,14 +168,30 @@ export class Kanban {
         return output;
     }
 
-    static kanbanToMd(data: any) {
-        var output: any[] = [];
-        data.forEach(function (board: any) {
+    static kanbanToMd(data: Board[]):string {
+        var output: string[] = [];
+        data.forEach(function (board: Board) {
             output.push("# " + board.name);
-            board.cards.forEach(function (card: any) {
+            board.cards.forEach(function (card: Card) {
                 output.push(" * " + card.name);
             })
         });
         return output.join("\n");
     }
 };
+
+export class Card{
+    name: string
+    cardid: number
+}
+
+export class Board{
+    name: string
+    cards: Card[]
+}
+
+class KanbanOptions{
+    onUpdate: (data: Board[])=>void
+    el: string
+    data: Board[]
+}
