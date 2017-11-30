@@ -1,5 +1,7 @@
 # kanbandown
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/anydown/kanbandown.svg)](https://greenkeeper.io/)
+
 Kanban to Markdown to Kanban :tada:
 
 # Example
